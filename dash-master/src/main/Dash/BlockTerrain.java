@@ -1,23 +1,20 @@
+import gameframework.drawing.DrawableImage;
+import gameframework.game.GameData;
+import gameframework.game.GameEntity;
+import gameframework.motion.blocking.MoveBlocker;
+import gameframework.motion.overlapping.Overlappable;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import gameframework.drawing.Drawable;
-import gameframework.drawing.DrawableImage;
-import gameframework.game.GameData;
-import gameframework.game.GameEntity;
-import gameframework.motion.GameMovable;
-import gameframework.motion.MoveStrategy;
-import gameframework.motion.MoveStrategyDefaultImpl;
-import gameframework.motion.MoveStrategyStraightLine;
-import gameframework.motion.SpeedVector;
-import gameframework.motion.blocking.MoveBlocker;
 
-
-public class BlockTerrain extends GameMovable implements GameEntity,Drawable,MoveBlocker{
+public class BlockTerrain implements Overlappable,GameEntity,MoveBlocker{
 	
 	private static SpriteManagerDash sprite;
 	private String type;
+	
+	private Point position;
 	
 	public BlockTerrain(GameData data,String type,Point p){
 		if(sprite==null){
@@ -27,26 +24,19 @@ public class BlockTerrain extends GameMovable implements GameEntity,Drawable,Mov
 			sprite.setTypes("0","1","2","3","4","5");
 		}
 		this.type=type;
-		
-		moveDriver.setmoveBlockerChecker(data.getMoveBlockerChecker());
-		this.setPosition(p);
-		
-		MoveStrategyStraightLine moveStrategy=new MoveStrategyStraightLine(getPosition(),new Point(-1000,getPosition().y));
-		moveStrategy.setSpeed(20);
-		moveDriver.setStrategy(moveStrategy);
-		
+		this.position = p;
 	}
 	
 	@Override
 	public void draw(Graphics g) {
 		sprite.setType(type);
-	 	sprite.draw(g, getPosition());
+	 	sprite.draw(g, position);
 		
 	}
 	
 	@Override
 	public Rectangle getBoundingBox() {
-		return new Rectangle(getPosition().x,getPosition().y,150, 150);
+		return new Rectangle(position.x,position.y,150, 150);
 	}
 
 	public SpriteManagerDash getSpriteBlockTerrainManager(){
@@ -54,10 +44,19 @@ public class BlockTerrain extends GameMovable implements GameEntity,Drawable,Mov
 	}
 
 	@Override
-	public void oneStepMoveAddedBehavior() {
-		if(getPosition().x+150<0){
-			this.setPosition(new Point(1000,getPosition().y));
-		}
+	public void draw(Graphics g, Point p) {
+		sprite.setType(type);
+	 	sprite.draw(g, new Point(position.x-p.x,position.y-p.y));
+	}
+
+	@Override
+	public boolean isMovable() {
+		return false;
+	}
+
+	@Override
+	public Point getPosition() {
+		return position;
 	}
 	
 }

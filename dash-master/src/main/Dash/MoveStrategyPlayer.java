@@ -11,7 +11,8 @@ public class MoveStrategyPlayer extends MoveStrategyKeyboard {
 	private Player player;
 
 	public MoveStrategyPlayer(Player player) {
-		super(new SpeedVector(new Point(0, 3)));
+		super(new SpeedVector(new Point(1, 1)));
+		setSpeed(10);
 		this.player=player;
 	}
 

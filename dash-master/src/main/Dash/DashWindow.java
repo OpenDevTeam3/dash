@@ -21,13 +21,10 @@ public class DashWindow extends GameWindow{
 		this.createGUI();
 				
 		Player player = new Player(gameCanvas,data);
-		Terrain terrain = new Terrain(gameCanvas,data);
-		
 		data.getUniverse().addGameEntity(player);
-		data.getUniverse().addGameEntity(terrain);
 		
-		for(int i = 0 ;i<10;i++){
-			BlockTerrain block = new BlockTerrain(data, ""+i%5, new Point(i*100,400));
+		for(int i = 0 ;i<8;i++){
+			BlockTerrain block = new BlockTerrain(data, ""+i%5, new Point(i*100,550));
 			data.getUniverse().addGameEntity(block);
 		}
 			

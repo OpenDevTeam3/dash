@@ -11,5 +11,9 @@ public class ConfigurationDash extends GameConfiguration{
 	public MoveBlockerRulesApplier createMoveBlockerRulesApplier() {
 		return new MoveBlockerRulesApplierDash();
 	}
+	
+	public int getVitesse(){
+		return 10;
+	}
 
 }

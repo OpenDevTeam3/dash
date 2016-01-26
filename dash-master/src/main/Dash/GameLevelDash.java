@@ -11,9 +11,7 @@ public class GameLevelDash extends GameLevelDefaultImpl {
 
 	@Override
 	protected void init() {
-		gameBoard=new GameUniverseViewPortDefaultImpl();
-		gameBoard.setGameData(data);
-		
+		gameBoard=new GameUniverseViewPortDash(data);
 	}
 
 }

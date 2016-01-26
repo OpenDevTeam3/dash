@@ -55,24 +55,36 @@ public class Player extends GameMovable implements GameEntity,Drawable,MoveBlock
 	public Rectangle getBoundingBox() {
 		return new Rectangle(getPosition().x,getPosition().y, 50*4, 50*4);
 	}
+	
+	@Override
+	public void draw(Graphics g, Point p) {
+		sprite.draw(g, new Point(getPosition().x-p.x,getPosition().y-p.y),46,50);
+		
+		// hit box
+		g.drawRect(getPosition().x-p.x,getPosition().y-p.y, 50*4, 50*4);	}
 
 	@Override
 	public void draw(Graphics g) {
 		
 		sprite.draw(g, getPosition(),46,50);
-		this.sprite.increment();
-		if(!ontheground){
-			getSpeedVector().getDirection().y++;
-		}
-		if(animenormal && (anime++)==9){
-			this.sprite.setType("course");
-			this.sprite.reset();
-		}
 		
 		// hit box
 		g.drawRect(getPosition().x,getPosition().y, 50*4, 50*4);
 	}
 
+	
+	@Override
+	public void oneStepMoveAddedBehavior() {
+		if(animenormal && (anime++)==9){
+			this.sprite.setType("course");
+			this.sprite.reset();
+		}
+		
+		this.sprite.increment();
+		getSpeedVector().getDirection().y++;
+		
+	}
+	
 	public int jump() {
 		this.ontheground=false;
 		sprite.setType("2");
@@ -82,11 +94,7 @@ public class Player extends GameMovable implements GameEntity,Drawable,MoveBlock
 		return getSpeedVector().getDirection().y=-5;
 	}
 	
-	
-	@Override
-	public void oneStepMoveAddedBehavior() {
-		// TODO Auto-generated method stub
-	}
+
 
 	public boolean isOntheground() {
 		return ontheground;
@@ -96,4 +104,5 @@ public class Player extends GameMovable implements GameEntity,Drawable,MoveBlock
 		this.ontheground=ontheground;
 	}
 
+	
 }

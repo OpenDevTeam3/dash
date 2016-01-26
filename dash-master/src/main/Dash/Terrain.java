@@ -62,4 +62,11 @@ public class Terrain extends GameMovable implements GameEntity,Drawable,MoveBloc
 		// TODO Auto-generated method stub
 	}
 
+
+	@Override
+	public void draw(Graphics g, Point p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
