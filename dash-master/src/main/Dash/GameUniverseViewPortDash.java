@@ -15,8 +15,6 @@ public class GameUniverseViewPortDash implements GameUniverseViewPort {
 	private Image buffer;
 	protected BackgroundImage background;
 	protected GameData data;
-	private Camera camera;
-
 	protected URL backgroundImage(String path) {
 		return this.getClass().getResource(path);
 	}
@@ -35,10 +33,10 @@ public class GameUniverseViewPortDash implements GameUniverseViewPort {
 	public void paint() {
 		background.draw(getBufferGraphics());
 		Iterator<GameEntity> gt = getUniverse().getGameEntitiesIterator();
-		camera.moveCamera();
+		Camera.getInstance().moveCamera();
 		for (; gt.hasNext();) {
 			GameEntity tmp = gt.next();
-			tmp.draw(getBufferGraphics(),camera.getPosition());
+			tmp.draw(getBufferGraphics());
 		}
 		refresh();
 	}
@@ -56,7 +54,6 @@ public class GameUniverseViewPortDash implements GameUniverseViewPort {
 		this.data = data;
 		buffer = getCanvas().createBuffer();
 		background = new BackgroundImage(backgroundImage(), getCanvas());
-		camera=new Camera(data);
 	}
 
 	protected Graphics getBufferGraphics() {

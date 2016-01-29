@@ -23,8 +23,8 @@ public class DashWindow extends GameWindow{
 		Player player = new Player(gameCanvas,data);
 		data.getUniverse().addGameEntity(player);
 		
-		for(int i = 0 ;i<8;i++){
-			BlockTerrain block = new BlockTerrain(data, ""+i%5, new Point(i*100,550));
+		for(int i = 0 ;i<40;i++){
+			BlockTerrain block = new BlockTerrain(data, "herbe", new Point(i*50,550));
 			data.getUniverse().addGameEntity(block);
 		}
 			
@@ -36,6 +36,7 @@ public class DashWindow extends GameWindow{
 
 	public static void main(String[] args) {
 		GameData data=new GameData(new ConfigurationDash(30,50,24, 1));
+		Camera.setData(data);
 		new DashWindow("Dash",data.getCanvas() ,data);
 	}
 }

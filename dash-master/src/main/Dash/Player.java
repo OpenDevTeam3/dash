@@ -32,7 +32,7 @@ public class Player extends GameMovable implements GameEntity,Drawable,MoveBlock
 		super();
 		ontheground=false;
 		
-		MoveStrategyPlayer moveStrategy=new MoveStrategyPlayer(this);
+		MoveStrategyPlayer moveStrategy=new MoveStrategyPlayer(this,data);
 		moveDriver.setStrategy(moveStrategy);
 		
 		gameCanvas.addKeyListener(moveStrategy);
@@ -44,7 +44,7 @@ public class Player extends GameMovable implements GameEntity,Drawable,MoveBlock
 		//this.gameCanvas=gameCanvas;
 		image = new DrawableImage("../../playersprite.png", gameCanvas);
 		
-		this.sprite = new SpriteManagerDash(image, 200, 8);
+		this.sprite = new SpriteManagerDash(image, 128, 8);
 		this.sprite.setTypes("normal","1","2","course");
 		this.sprite.setType("course");
 		
@@ -53,23 +53,17 @@ public class Player extends GameMovable implements GameEntity,Drawable,MoveBlock
 	
 	@Override
 	public Rectangle getBoundingBox() {
-		return new Rectangle(getPosition().x,getPosition().y, 50*4, 50*4);
+		return new Rectangle(getPosition().x,getPosition().y, 64, 128);
 	}
 	
-	@Override
-	public void draw(Graphics g, Point p) {
-		sprite.draw(g, new Point(getPosition().x-p.x,getPosition().y-p.y),46,50);
-		
-		// hit box
-		g.drawRect(getPosition().x-p.x,getPosition().y-p.y, 50*4, 50*4);	}
-
+	
 	@Override
 	public void draw(Graphics g) {
 		
-		sprite.draw(g, getPosition(),46,50);
+		sprite.draw(g, new Point(getPosition().x-Camera.getInstance().getX(),getPosition().y-Camera.getInstance().getY()),46,50);
 		
 		// hit box
-		g.drawRect(getPosition().x,getPosition().y, 50*4, 50*4);
+		g.drawRect(getPosition().x-Camera.getInstance().getX(),getPosition().y-Camera.getInstance().getY(),64, 128);
 	}
 
 	

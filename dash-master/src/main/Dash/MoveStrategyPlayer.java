@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
+import gameframework.game.GameData;
 import gameframework.motion.MoveStrategy;
 import gameframework.motion.MoveStrategyKeyboard;
 import gameframework.motion.SpeedVector;
@@ -10,9 +11,10 @@ public class MoveStrategyPlayer extends MoveStrategyKeyboard {
 	
 	private Player player;
 
-	public MoveStrategyPlayer(Player player) {
+	public MoveStrategyPlayer(Player player,GameData data) {
 		super(new SpeedVector(new Point(1, 1)));
-		setSpeed(10);
+		int vitesse =((ConfigurationDash)data.getConfiguration()).getVitesse();
+		setSpeed(vitesse);
 		this.player=player;
 	}
 
